@@ -1,5 +1,6 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { StatusBar, Platform } from 'react-native';
 
 import listHeroes from './pages/listHeroes';
 import infoHeroes from './pages/infoHeroes';
@@ -9,7 +10,7 @@ const Routes = createAppContainer(
         listHeroes: {
             screen: listHeroes,
             navigationOptions: {
-                title: 'Characters'
+                title: 'Characters',
             },
         },
         infoHeroes: {
@@ -23,6 +24,7 @@ const Routes = createAppContainer(
            headerTintColor: '#FFF',
            headerStyle: {
                backgroundColor: '#B50F16'
+
            }
        } 
     }, {

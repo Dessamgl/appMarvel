@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, View, FlatList, Text, Image } from 'react-native'
 import md5 from 'js-md5'
 
 const PUBLIC_KEY = '2f2331c74c430b98e884e694b0c722cc'
 const PRIVATE_KEY = 'a951417c6542664dda96ea1f031cd75a50b3c3c7'
 
-const [data, setData] = useState([])
 // const [onItemPress, setOnItemPress] = useState([]);
 
-
-function ListHeroes() {
+function ListHeroes({ navigation }) {
+    const [data, setData] = useState([])
+    
     state = {
         data: []
     }
@@ -23,22 +23,26 @@ function ListHeroes() {
         const responseJson = await response.json()
         setData(responseJson.data.results)
     }
-    useEffect(initialLoad, []);
+
+    useEffect(() => {
+        initialLoad();
+    }, []);
 
     renderItem = ({item}) => {
         return  (
-            <TouchableOpacity onPress={()=>onItemPress(item)} style={{flexDirection:'row', padding: 10, alignItems:'center'}}>
+            <TouchableOpacity onPress={()=> {
+                navigation.navigate('infoHeroes', {hero: item})
+            }} style={{flexDirection:'row', padding: 10, alignItems:'center'}}>
                 <Image style={{height: 50, width: 50, borderRadius: 25}} source={{uri: `${item.thumbnail.path}.${item.thumbnail.extension}` }} />
                 <Text style={{marginLeft: 10}}>{item.name}</Text>
             </TouchableOpacity>
         )
     }
 
-    onItemPress = (props, item) => {
-        props.navigation.navigate('Description', {hero: item})
-    } 
+    // onItemPress = (item) => {
+    //     navigation.navigate('infoHeroes', {hero: item})
+    // } 
 
-    const render = () => {
         return (
             <FlatList 
                 data={data}
@@ -49,8 +53,6 @@ function ListHeroes() {
                 />}
             />
         )
-    }
-    render();
 }
 
 export default ListHeroes;
