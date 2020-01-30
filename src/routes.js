@@ -4,7 +4,7 @@ import { StatusBar, Platform } from 'react-native';
 
 import listHeroes from './pages/listHeroes';
 import infoHeroes from './pages/infoHeroes';
-
+  
 const Routes = createAppContainer(
     createStackNavigator({
         listHeroes: {
@@ -24,8 +24,7 @@ const Routes = createAppContainer(
            headerTintColor: '#FFF',
            headerStyle: {
                backgroundColor: '#B50F16'
-
-           }
+           },
        } 
     }, {
         cardStyle: {
