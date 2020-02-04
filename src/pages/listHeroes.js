@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View, FlatList, Text, Image, TextInput } from 'react-native'
+import { TouchableOpacity, View, FlatList, Text, Image, Action } from 'react-native'
+import { Header} from "react-native-elements";
 import * as Font from 'expo-font';
 import { MaterialIcons } from '@expo/vector-icons';
 import md5 from 'js-md5'
@@ -7,10 +8,15 @@ import md5 from 'js-md5'
 const PUBLIC_KEY = '2f2331c74c430b98e884e694b0c722cc'
 const PRIVATE_KEY = 'a951417c6542664dda96ea1f031cd75a50b3c3c7'
 
-
+export function homeConfig({navigation}) {
+    return {
+        header: null
+    }
+}
 function ListHeroes({ navigation }) {
     Font.loadAsync({
         'barlow-black': require('../../assets/fonts/Barlow-Black.ttf'),
+        'barlow-condensed': require('../../assets/fonts/BarlowCondensed-Black.ttf')
       })
     const [data, setData] = useState([])
     
@@ -45,11 +51,11 @@ function ListHeroes({ navigation }) {
                     style={{height: 50, width: 50, borderRadius: 25}} 
                     source={{uri: `${item.thumbnail.path}.${item.thumbnail.extension}` }} 
                 />
-                <Text style={{marginLeft: 10, color: "#ffffff", fontFamily: 'barlow-black'}}>{item.name}</Text>
-                <MaterialIcons name="keyboard-arrow-right" size={40} color="#F0141E" style={{
+                <Text style={{marginLeft: 10, color: "#ffffff", fontFamily: 'barlow-condensed', fontStyle: "normal", fontWeight: "normal", fontSize: 16, lineHeight: 19}}>{item.name}</Text>
+                <MaterialIcons name="keyboard-arrow-right" size={35} color="#F0141E" style={{
                     position: "absolute",
                     height: 50,
-                    left: 333,
+                    left: 340,
                     top: 20,
                     mixBlendMode: "normal"
                 }}></MaterialIcons>
@@ -58,6 +64,26 @@ function ListHeroes({ navigation }) {
     }
 
         return (
+            <>
+            <Header
+            backgroundColor={'#B50F16'}
+            leftComponent={{
+                style: {color: '#fff', fontSize: 15, fontFamily: 'barlow-black' },
+                text: "Characters"
+            }}
+            rightComponent={
+                <TouchableOpacity
+                    onPress={()=> {
+                        navigation.navigate('infoHeroes', {hero: item})
+                    }} >
+                    <MaterialIcons name="search" size={25} color="#ffffff" style={{
+                        height: 20
+                    }}>
+                     </MaterialIcons>
+                     
+                </TouchableOpacity> 
+            }
+            />
             <FlatList style={{ backgroundColor: '#303030'}}
             data={data}
             renderItem={renderItem}
@@ -66,7 +92,8 @@ function ListHeroes({ navigation }) {
                 <View style={{height:1, backgroundColor: '#000000'}} 
                 />}
             />
-        )
+            </>
+            )
 }
 
 export default ListHeroes;
