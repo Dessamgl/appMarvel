@@ -71,7 +71,7 @@ function ListHeroes({ navigation }) {
             <Header
                 backgroundColor={'#B50F16'}
                 leftComponent={{
-                    style: {color: '#fff', fontSize: 15, fontFamily: 'barlow-black' },
+                    style: {color: '#fff', fontSisze: 15, fontFamily: 'barlow-black' },
                     text: "Characters"
                 }}
                 rightComponent={
