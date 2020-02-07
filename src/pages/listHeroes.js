@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View, FlatList, Text, Image, Action } from 'react-native'
+import { TouchableOpacity, View, FlatList, Text, Image } from 'react-native'
 import { Header} from "react-native-elements";
-import * as Font from 'expo-font';
 import { MaterialIcons } from '@expo/vector-icons';
+import * as Font from 'expo-font';
 import md5 from 'js-md5'
 
 const PUBLIC_KEY = '2f2331c74c430b98e884e694b0c722cc'
@@ -15,13 +15,18 @@ export function homeConfig({navigation}) {
 }
 
 function ListHeroes({ navigation }) {
-    Font.loadAsync({
-        'barlow-black': require('../../assets/fonts/Barlow-Black.ttf'),
-        'barlow-condensed': require('../../assets/fonts/BarlowCondensed-Black.ttf')
-      })
-
     const [data, setData] = useState([]);
-    const [active, setActive] = useState(false);
+    const [fontIsLoaded, setFontIsLoaded] = useState(false);
+    
+    useEffect(() => {
+        Font.loadAsync({
+            'barlow-black': require('../../assets/fonts/Barlow-Black.ttf'),
+            'barlow-condensed': require('../../assets/fonts/BarlowCondensed-Black.ttf')
+          }).then(() => {
+            setFontIsLoaded(true);
+          })
+      }, [])
+ 
     
     state = {
         data: []
@@ -89,7 +94,7 @@ function ListHeroes({ navigation }) {
             <Header
                 backgroundColor={'#B50F16'}
                 leftComponent={{
-                    style: {color: '#fff', fontSisze: 15, fontFamily: 'barlow-black' },
+                    style: {color: '#fff', fontSisze: 15, fontFamily: fontIsLoaded ? 'barlow-black' : 'normal' },
                     text: "Characters"
                 }}
                 rightComponent={
